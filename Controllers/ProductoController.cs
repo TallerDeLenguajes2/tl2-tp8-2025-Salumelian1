@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Proyecto.Models;
+using SistemaVentas.Web.ViewModels;
 using Proyecto.Repositorys;
+using Proyecto.Models;
 namespace Proyecto.Controllers;
 
 public class ProductoController : Controller
@@ -26,9 +27,19 @@ public class ProductoController : Controller
 
     [HttpPost]
 
-    public IActionResult Create(Productos produc)
+    public IActionResult Create(ProductoViewModel produc)
     {
-        productoRepository.nuevoProducto(produc);
+        if (!ModelState.IsValid)
+        {
+            return View(produc);
+        }
+        var nuevoProducto = new Productos
+        {
+            descripcion = produc.Descripcion,
+            precio = produc.Precio
+        };
+
+        productoRepository.nuevoProducto(nuevoProducto);
         return RedirectToAction("Index");
     }
 
@@ -40,9 +51,20 @@ public class ProductoController : Controller
 
     [HttpPost]
 
-    public IActionResult Edit(int id, Productos produc)
+    public IActionResult Edit(int id, ProductoViewModel produc)
     {
-        productoRepository.ActualizarProducto(id, produc);
+        if (id != produc.idProducto) return NotFound();
+        if (!ModelState.IsValid)
+        {
+            return View(produc);
+        }
+        var ProductoEditado = new Productos
+        {
+            idProducto = produc.idProducto,
+            descripcion = produc.Descripcion,
+            precio = produc.Precio
+        };
+        productoRepository.ActualizarProducto(id, ProductoEditado);
         return RedirectToAction("Index");
     }
 

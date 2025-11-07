@@ -117,3 +117,4 @@ C:\Users\salus\Desktop\TallerII\tl2-tp8-2025-Salumelian1\obj\Debug\net9.0\refint
 C:\Users\salus\Desktop\TallerII\tl2-tp8-2025-Salumelian1\obj\Debug\net9.0\tl2-tp8-2025-Salumelian1.pdb
 C:\Users\salus\Desktop\TallerII\tl2-tp8-2025-Salumelian1\obj\Debug\net9.0\tl2-tp8-2025-Salumelian1.genruntimeconfig.cache
 C:\Users\salus\Desktop\TallerII\tl2-tp8-2025-Salumelian1\obj\Debug\net9.0\ref\tl2-tp8-2025-Salumelian1.dll
+C:\Users\salus\Desktop\TallerII\tl2-tp8-2025-Salumelian1\obj\Debug\net9.0\tl2-tp8-2025-Salumelian1.sourcelink.json
