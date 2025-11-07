@@ -1,5 +1,5 @@
 @using Proyecto.Models
-@model Productos
+@model SistemaVentas.Web.ViewModels.ProductoViewModel
 
 @{
     ViewData["Title"] = "Editar Producto";
@@ -16,15 +16,15 @@
             <input type="hidden" asp-for="idProducto" />
             
             <div class="form-group">
-                <label asp-for="descripcion" class="control-label"></label>
-                <input asp-for="descripcion" class="form-control" />
-                <span asp-validation-for="descripcion" class="text-danger"></span>
+                <label asp-for="Descripcion" class="control-label"></label>
+                <input asp-for="Descripcion" class="form-control" />
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
             
             <div class="form-group">
-                <label asp-for="precio" class="control-label"></label>
-                <input asp-for="precio" class="form-control" />
-                <span asp-validation-for="precio" class="text-danger"></span>
+                <label asp-for="Precio" class="control-label"></label>
+                <input asp-for="Precio" class="form-control" />
+                <span asp-validation-for="Precio" class="text-danger"></span>
             </div>
             
             <br/>
@@ -34,5 +34,8 @@
                 <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
             </div>
         </form>
+        @section Scripts{
+            <partial name ="_ValidationScriptsPartial" />
+        }
     </div>
 </div>

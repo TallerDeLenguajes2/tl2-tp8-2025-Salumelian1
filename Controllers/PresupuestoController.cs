@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Proyecto.Models;
+using SistemaVentas.Web.ViewModels;
 using Proyecto.Repositorys;
+using Proyecto.Models;
 namespace Presupuesto.Controllers;
 
 public class PresupuestoController : Controller
@@ -36,9 +37,18 @@ public class PresupuestoController : Controller
     }
 
     [HttpPost]
-    public IActionResult Create(Presupuestos presu)
+    public IActionResult Create(PresupuestoViewModel presu)
     {
-        presupuestoRepository.nuevoPresupuesto(presu);
+        if (!ModelState.IsValid)
+        {
+            return View(presu);
+        }
+        var nuevoPresupuesto = new Presupuestos
+        {
+            NombreDestinatario = presu.NombreDestinatario,
+            FechaCreacion = presu.FechaCreacion
+        };
+        presupuestoRepository.nuevoPresupuesto(nuevoPresupuesto);
         return RedirectToAction("Index");
     }
 
@@ -49,9 +59,20 @@ public class PresupuestoController : Controller
     }
 
     [HttpPost]
-    public IActionResult Edit(int id, Presupuestos presu)
+    public IActionResult Edit(int id, PresupuestoViewModel presu)
     {
-        presupuestoRepository.ActualizarPresupuesto(id, presu);
+        if (id != presu.idPresupuesto) return NotFound();
+        if (!ModelState.IsValid)
+        {
+            return View(presu);
+        }
+        var PresupuestoModificado = new Presupuestos
+        {
+            idPresupuesto = presu.idPresupuesto,
+            NombreDestinatario = presu.NombreDestinatario,
+            FechaCreacion = presu.FechaCreacion,
+        };
+        presupuestoRepository.ActualizarPresupuesto(id, PresupuestoModificado);
         return RedirectToAction("Index");
     }
 
