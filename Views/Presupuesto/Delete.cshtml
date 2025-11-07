@@ -1,0 +1,43 @@
+@using Proyecto.Models
+@model Presupuestos
+
+@{
+    ViewData["Title"] = "Eliminar Presupuesto";
+}
+
+<h1>Eliminar Presupuesto</h1>
+
+<h3>¿Estás seguro de que quieres eliminar esto?</h3>
+<div>
+    <h4>Presupuesto</h4>
+    <hr />
+    
+    <dl class="row">
+        <dt class = "col-sm-2">
+            ID
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.idPresupuesto
+        </dd>
+        <dt class = "col-sm-2">
+            Destinatario
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.NombreDestinatario
+        </dd>
+        <dt class = "col-sm-2">
+            Fecha de Creación
+        </dt>
+        <dd class = "col-sm-10">
+            @Model.FechaCreacion.ToShortDateString()
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        
+        <input type="hidden" asp-for="idPresupuesto" />
+        
+        <input type="submit" value="Eliminar" class="btn btn-danger" />
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

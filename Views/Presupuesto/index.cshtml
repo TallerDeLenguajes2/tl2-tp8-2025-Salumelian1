@@ -1,0 +1,49 @@
+@using Proyecto.Models
+@model List<Presupuestos>
+
+@{
+    ViewData["Title"] = "Lista de Presupuestos";
+}
+
+<h1>Lista de Presupuestos</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nuevo Presupuesto</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Destinatario
+            </th>
+            <th>
+                Fecha de Creación
+            </th>
+            <th></th> </tr>
+    </thead>
+    <tbody>
+
+@foreach (var presupuesto in Model) {
+        <tr>
+            <td>
+                @presupuesto.idPresupuesto
+            </td>
+            <td>
+                @presupuesto.NombreDestinatario
+            </td>
+            <td>
+                @presupuesto.FechaCreacion.ToShortDateString()
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@presupuesto.idPresupuesto">Editar</a> |
+                <a asp-action="Details" asp-route-id="@presupuesto.idPresupuesto">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@presupuesto.idPresupuesto">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

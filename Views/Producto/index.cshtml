@@ -1,0 +1,51 @@
+@using Proyecto.Models
+@model List<Productos>
+
+@{
+    ViewData["Title"] = "Lista de Productos";
+}
+
+<h1>Lista de Productos</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nuevo Producto</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                Descripción
+            </th>
+            <th>
+                Precio
+            </th>
+            <th>
+                </th>
+        </tr>
+    </thead>
+    <tbody>
+
+@foreach (var producto in Model) {
+        <tr>
+            <td>
+                @producto.idProducto
+            </td>
+            <td>
+                @producto.descripcion
+            </td>
+            <td>
+                @producto.precio
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@producto.idProducto">Editar</a> |
+                <a asp-action="Details" asp-route-id="@producto.idProducto">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@producto.idProducto">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
