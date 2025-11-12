@@ -1,9 +1,11 @@
 using System.ComponentModel.DataAnnotations; 
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Proyecto.Models;
 namespace SistemaVentas.Web.ViewModels 
 { 
-    public class AgregarProductoViewModel 
-    {  
+    public class AgregarProductoViewModel
+    {
+
         public int IdPresupuesto { get; set; }  
         [Display(Name = "Producto a agregar")] 
         public int IdProducto { get; set; }  
@@ -12,6 +14,6 @@ namespace SistemaVentas.Web.ViewModels
         [Range(1, int.MaxValue, ErrorMessage = "La cantidad debe ser mayor a cero.")] 
         public int Cantidad { get; set; } 
         
-        public SelectList ListaProductos { get; set; }  
+        public SelectList? ListaProductos { get; set; }  
     } 
 } 

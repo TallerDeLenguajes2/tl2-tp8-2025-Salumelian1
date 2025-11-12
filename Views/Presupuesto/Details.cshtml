@@ -36,8 +36,9 @@
 
 <h4>Productos Incluidos</h4>
 
-@if (Model.detalle != null && Model.detalle.Any())
-{
+<a asp-action="AgregarProducto" asp-route-id="@Model.idPresupuesto" class="btn btn-success">
+        Agregar Producto
+    </a>
     <table class="table">
         <thead>
             <tr>
@@ -66,11 +67,6 @@
     }
         </tbody>
     </table>
-}
-else
-{
-    <p>Este presupuesto no tiene productos asignados.</p>
-}
 
 <br/>
 <div>

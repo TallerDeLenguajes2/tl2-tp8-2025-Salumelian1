@@ -2,14 +2,18 @@ using Microsoft.AspNetCore.Mvc;
 using SistemaVentas.Web.ViewModels;
 using Proyecto.Repositorys;
 using Proyecto.Models;
+using Proyecto.Controllers;
+using Microsoft.AspNetCore.Mvc.Rendering;
 namespace Presupuesto.Controllers;
 
 public class PresupuestoController : Controller
 {
     private PresupuestoRepository presupuestoRepository;
+    private ProductoRepository productoRepository;
     public PresupuestoController()
     {
         presupuestoRepository = new PresupuestoRepository();
+        productoRepository = new ProductoRepository();
     }
 
     [HttpGet]
@@ -81,6 +85,30 @@ public class PresupuestoController : Controller
     public IActionResult Delete(int id)
     {
         presupuestoRepository.EliminarPresupuesto(id);
+        return RedirectToAction("Index");
+    }
+    [HttpGet]
+    public IActionResult AgregarProducto(int id)
+    {
+        List<Productos> productos = productoRepository.listarProductos();
+        AgregarProductoViewModel modelo = new AgregarProductoViewModel
+        {
+            IdPresupuesto = id,
+            ListaProductos = new SelectList(productos, "idProducto", "descripcion")
+        };
+        return View(modelo);
+    }
+
+    [HttpPost]
+    public IActionResult AgregarProducto(AgregarProductoViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            var productos = productoRepository.listarProductos();
+            model.ListaProductos = new SelectList(productos, "idProdcto", "descripcion");
+            return View(model);
+        }
+        presupuestoRepository.createProducto(model.IdPresupuesto, model.IdProducto, model.Cantidad);
         return RedirectToAction("Index");
     }
 }

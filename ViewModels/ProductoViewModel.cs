@@ -1,10 +1,22 @@
 using System.ComponentModel.DataAnnotations;
 using System;
+using Proyecto.Models;
 
 namespace SistemaVentas.Web.ViewModels
 {
     public class ProductoViewModel
     {
+        public ProductoViewModel()
+        {
+
+        }
+        
+        public ProductoViewModel(Productos producto)
+        {
+            idProducto = producto.idProducto;
+            Descripcion = producto.descripcion;
+            Precio = producto.precio;
+        }
         public int idProducto { get; set; }
 
         [Display(Name = "Descripcion del Producto")]

@@ -128,7 +128,7 @@ namespace Proyecto.Repositorys
 
             comando.ExecuteNonQuery();
         }
-        
+
         public void ActualizarPresupuesto(int id, Presupuestos presupuesto)
         {
             // Usamos el nombre de columna 'NombreDestinatario' de tu base de datos
@@ -143,6 +143,31 @@ namespace Proyecto.Repositorys
             comando.Parameters.Add(new SqliteParameter("@id", id));
 
             comando.ExecuteNonQuery();
+        }
+
+        public void createProducto(int idPresupuesto, int idProducto, int cantidad)
+        {
+            using var conexion = new SqliteConnection(cadenaConexion);
+            conexion.Open();
+            string sql = "SELECT idPresupuesto FROM Presupuestos WHERE idPresupuesto = @idPresupuesto";
+
+            using var comando = new SqliteCommand(sql, conexion);
+            comando.Parameters.Add(new SqliteParameter("@idPresupuesto", idPresupuesto));
+
+            using SqliteDataReader lector = comando.ExecuteReader();
+            if (!lector.Read()) throw new KeyNotFoundException($"El presupuesto {idPresupuesto} no existe");
+            string sql2 = "SELECT idProducto FROM Productos WHERE idProducto = @idProducto";
+
+            using var comando2 = new SqliteCommand(sql2, conexion);
+            comando2.Parameters.Add(new SqliteParameter("@idProducto", idProducto));
+            using SqliteDataReader lector2 = comando2.ExecuteReader();
+            if (!lector2.Read()) throw new KeyNotFoundException($"El producto {idProducto} no existe");
+            string sql3 = "INSERT INTO PresupuestosDetalle VALUES (@idPresupuesto, @idProducto, @Cantidad)";
+            using var comando3 = new SqliteCommand(sql3, conexion);
+            comando3.Parameters.Add(new SqliteParameter("@idPresupuesto", idPresupuesto));
+            comando3.Parameters.Add(new SqliteParameter("@idProducto", idProducto));
+            comando3.Parameters.Add(new SqliteParameter("@Cantidad", cantidad));
+            comando3.ExecuteNonQuery();
         }
     }
 }
